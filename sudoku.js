@@ -28,3 +28,25 @@ function checkrow(row) {
             return false;
     return true;
 }
+
+function checkinnersquare(squareno) {
+    startrow = 0;
+    if (squareno < 3) {
+        startrow = 0;
+    }
+    else if (squareno < 6) {
+        startrow = 3;
+    } else {
+        startrow = 6;
+    }
+    startcol = (squareno % 3) * 3;
+
+    nums[10] = new Array();
+    for (outer = 0; outer < 3; outer++)
+        for (inner = 0; inner < 3; inner++)
+            nums[puzzle[startrow + outer][startcol + inner]]++;
+    for (a = 1; a < 10; a++)
+        if (nums[a] > 1)
+            return false;
+    return true;
+}
