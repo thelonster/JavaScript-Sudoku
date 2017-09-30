@@ -119,8 +119,15 @@ function setPuzzle(newPuzzle) {
     initializeImmutable();
 }
 
+function getPuzzle() {
+    return puzzle;
+}
+
 function solve(row, col) {
+    // loop runs while the puzzle isn't solved
     while (!isSolved()) {
+        //Immutable is an array of 0's and 1's where 1's indicate a part of the puzzle that can't be changed
+        //If we are at a pos of an immutable number, go to the next one
         if (immutable[row][col] == 1) {
             if (col < 8)
                 col++;
@@ -128,13 +135,17 @@ function solve(row, col) {
               row++;
               col = 0;
             }
+            //Using the continue statement to jump back to start of while loop
             continue;
         } else {
             var testNo;
+            //If the position is empty, start from beginning testing values
             if (puzzle[row][col] == 0)
                 testno = 1;
+            //If not, set testno to the next value
             else
                 testNo = puzzle[row][col] + 1;
+            //This bool is to exit the for loop once a value is successfully placed in the puzzle
             var success = false;
             for (testNo; testNo < 10 && !success; testNo++) {
                 puzzle[row][col] = testNo;
@@ -148,8 +159,11 @@ function solve(row, col) {
                     success = true;
                 }
             }
+            //To prevent undoing work, start again if value was successfully added
             if (success)
                 continue;
+            //getprevnonimmutable pos returns an int that is the numerical position in the puzzle
+            //I can take this pos and get the new row and column
             var tempIndex = getPrevNonImmutablePos(row, col);
             var newRow = tempIndex / 9;
             var newCol = tempIndex % 9;
