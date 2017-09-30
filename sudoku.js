@@ -2,19 +2,19 @@ var puzzle = new Array();
 var immutable = new Array();
 
 function initializePuzzle() {
-    for (a = 0; a < 9; a++) {
+    for (var a = 0; a < 9; a++) {
         puzzle[a] = new Array();
-        for (b = 0; b < 9; b++) {
+        for (var b = 0; b < 9; b++) {
             puzzle[a][b] = 0;
         }
     }
 }
 
 function checkColumn(column) {
-    nums[10] = new Array();
-    for (a = 0; a < 9; a++)
+    var nums[10] = new Array();
+    for (var a = 0; a < 9; a++)
         nums[puzzle[a][column]]++;
-    for (i = 1; i < 10; i++)
+    for (var i = 1; i < 10; i++)
         if (nums[i] > 1)
             return false;
     return true;
@@ -30,23 +30,23 @@ function checkRow(row) {
     return true;
 }
 
-function checkInnerSquare(squareno) {
-    startrow = 0;
+function checkInnerSquare(squareNo) {
+    var startRow = 0;
     if (squareno < 3) {
-        startrow = 0;
+        startRow = 0;
     }
-    else if (squareno < 6) {
-        startrow = 3;
+    else if (squareNo < 6) {
+        startRow = 3;
     } else {
-        startrow = 6;
+        startRow = 6;
     }
-    startcol = (squareno % 3) * 3;
+    startCol = (squareNo % 3) * 3;
 
-    nums[10] = new Array();
-    for (outer = 0; outer < 3; outer++)
-        for (inner = 0; inner < 3; inner++)
-            nums[puzzle[startrow + outer][startcol + inner]]++;
-    for (a = 1; a < 10; a++)
+    var nums[10] = new Array();
+    for (var outer = 0; outer < 3; outer++)
+        for (var inner = 0; inner < 3; inner++)
+            nums[puzzle[startRow + outer][startCol + inner]]++;
+    for (var a = 1; a < 10; a++)
         if (nums[a] > 1)
             return false;
     return true;
@@ -60,8 +60,8 @@ function getGridNo(row, col) {
 }
 
 function isSolved() {
-    for (int a = 0; a < 9; a++) {
-        for (int b = 0; b < 9; b++)
+    for (var a = 0; a < 9; a++) {
+        for (var b = 0; b < 9; b++)
             if (puzzle[a][b] == 0)
                 return false;
         if (!checkcolumn(a))
@@ -75,7 +75,7 @@ function isSolved() {
 }
 
 function findStartCol() {
-    for (int a = 0; a < 9; a++)
+    for (var a = 0; a < 9; a++)
         if (puzzle[a][0] == 0)
             return a;
     return -1;
@@ -93,28 +93,69 @@ function getPrevNonImmutablePos(row, col) {
 }
 
 function initializeImmutable() {
-    for (int r = 0; r < 9; r++) {
+    for (var r = 0; r < 9; r++) {
         immutable[r] = new Array();
-        for (int c = 0; c < 9; c++)
+        for (var c = 0; c < 9; c++)
             immutable[r][c] = puzzle[r][c] > 0 ? 1 : 0;
     }
 }
 
 function clearImmutable() {
-    for (int r = 0; r < 9; r++)
-        for (int c = 0; c < 9; c++)
+    for (var r = 0; r < 9; r++)
+        for (var c = 0; c < 9; c++)
             immutable[r][c] = 0;
 }
 
 function clearPuzzle() {
-  for (int r = 0; r < 9; r++)
-      for (int c = 0; c < 9; c++)
+  for (var r = 0; r < 9; r++)
+      for (var c = 0; c < 9; c++)
           puzzle[r][c] = 0;
 }
 
-function setpuzzle(newPuzzle) {
-    for (int r = 0; r < 9; r++)
-        for (int c = 0; c < 9; c++)
+function setPuzzle(newPuzzle) {
+    for (var r = 0; r < 9; r++)
+        for (var c = 0; c < 9; c++)
             puzzle[r][c] = newPuzzle[r][c];
     initializeImmutable();
+}
+
+function solve(row, col) {
+    while (!isSolved()) {
+        if (immutable[row][col] == 1) {
+            if (col < 8)
+                col++;
+            else {
+              row++;
+              col = 0;
+            }
+            continue;
+        } else {
+            var testNo;
+            if (puzzle[row][col] == 0)
+                testno = 1;
+            else
+                testNo = puzzle[row][col] + 1;
+            var success = false;
+            for (testNo; testNo < 10 && !success; testNo++) {
+                puzzle[row][col] = testNo;
+                if (checkRow(row) && checkColumn(col) && checkInnerSquare(getGridNo(row, col))) {
+                    if (col < 8)
+                        col++;
+                    else {
+                        row++;
+                        col = 0;
+                    }
+                    success = true;
+                }
+            }
+            if (success)
+                continue;
+            var tempIndex = getPrevNonImmutablePos(row, col);
+            var newRow = tempIndex / 9;
+            var newCol = tempIndex % 9;
+            puzzle[row][col] = 0;
+            row = newRow > 0 ? newRow : 0;
+            col = newCol;
+        }
+    }
 }
