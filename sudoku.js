@@ -123,7 +123,7 @@ function getPuzzle() {
     return puzzle;
 }
 
-function solve(row, col) {
+function sudokuSolve(row, col) {
     // loop runs while the puzzle isn't solved
     while (!isSolved()) {
         //Immutable is an array of 0's and 1's where 1's indicate a part of the puzzle that can't be changed
