@@ -1,9 +1,9 @@
-var puzzle = [];//new Array();
-var immutable = [];//new Array();
+var puzzle = [];
+var immutable = [];
 
 function initializePuzzle() {
     for (var a = 0; a < 9; a++) {
-        puzzle[a] = [];//new Array();
+        puzzle[a] = [];
         for (var b = 0; b < 9; b++) {
             puzzle[a][b] = 0;
         }
@@ -11,7 +11,7 @@ function initializePuzzle() {
 }
 
 function checkColumn(column) {
-    var nums = new Array(10);
+    var nums = [0,0,0,0,0,0,0,0,0,0];
     for (var a = 0; a < 9; a++)
         nums[parseInt(puzzle[a][column])]++;
     for (var i = 1; i < 10; i++)
@@ -21,10 +21,10 @@ function checkColumn(column) {
 }
 
 function checkRow(row) {
-    var nums = new Array(10);
-    for (a = 0; a < 9; a++)
+    var nums = [0,0,0,0,0,0,0,0,0,0];
+    for (var a = 0; a < 9; a++)
         nums[parseInt(puzzle[row][a])]++;
-    for (i = 1; i < 10; i++)
+    for (var i = 1; i < 10; i++)
         if (nums[i] > 1)
             return false;
     return true;
@@ -40,9 +40,9 @@ function checkInnerSquare(squareNo) {
     } else {
         startRow = 6;
     }
-    startCol = (squareNo % 3) * 3;
+    var startCol = (squareNo % 3) * 3;
 
-    var nums = new Array(10);
+    var nums = [0,0,0,0,0,0,0,0,0,0];
     for (var outer = 0; outer < 3; outer++)
         for (var inner = 0; inner < 3; inner++)
             nums[parseInt(puzzle[startRow + outer][startCol + inner])]++;
@@ -56,7 +56,7 @@ function getGridNo(row, col) {
     // I divide by 3 then multiply by 3 to lose precision, getting an answer that is
     // 0, 3, or 6. This is the row offset
     // Then I add the col / 3 to get the number of the grid
-    return ((row / 3) * 3) + (col / 3);
+    return (parseInt(row / 3) * 3) + parseInt(col / 3);
 }
 
 function isSolved() {
@@ -95,7 +95,7 @@ function getPrevNonImmutablePos(row, col) {
 
 function initializeImmutable() {
     for (var r = 0; r < 9; r++) {
-        immutable[r] = new Array();
+        immutable[r] = [];
         for (var c = 0; c < 9; c++)
             immutable[r][c] = puzzle[r][c] > 0 ? 1 : 0;
     }
@@ -141,7 +141,7 @@ function sudokuSolve(row, col) {
         } else {
             var testNo;
             //If the position is empty, start from beginning testing values
-            if (puzzle[row][col] == 0 || isNaN(puzzle[row][col]))
+            if (puzzle[row][col] == 0)
                 testNo = 1;
             //If not, set testno to the next value
             else
