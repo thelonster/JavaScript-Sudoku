@@ -61,14 +61,17 @@ function getGridNo(row, col) {
 
 function isSolved() {
     for (var a = 0; a < 9; a++) {
-        for (var b = 0; b < 9; b++)
+        for (var b = 0; b < 9; b++) {
             if (puzzle[a][b] == 0)
                 return false;
-        if (!checkcolumn(a))
+            else if (isNaN(puzzle[a][b]))
+                return false;
+        }
+        if (!checkColumn(a))
             return false;
-        else if (!checkrow(a))
+        else if (!checkRow(a))
             return false;
-        else if (!checkinnersquare(a))
+        else if (!checkInnerSquare(a))
             return false;
     }
     return true;
@@ -76,7 +79,7 @@ function isSolved() {
 
 function findStartCol() {
     for (var a = 0; a < 9; a++)
-        if (puzzle[a][0] == 0)
+        if (puzzle[a][0] == 0 || isNaN(puzzle[a][0]))
             return a;
     return -1;
 }
@@ -140,7 +143,7 @@ function sudokuSolve(row, col) {
         } else {
             var testNo;
             //If the position is empty, start from beginning testing values
-            if (puzzle[row][col] == 0)
+            if (puzzle[row][col] == 0 || isNaN(puzzle[row][col]))
                 testNo = 1;
             //If not, set testno to the next value
             else
@@ -149,7 +152,7 @@ function sudokuSolve(row, col) {
             var success = false;
             for (testNo; testNo < 10 && !success; testNo++) {
                 puzzle[row][col] = testNo;
-                if (checkRow(row) && checkColumn(col) && checkInnerSquare(getGridNo(row, col))) {
+                if (checkRow(row) && checkColumn(col) && checkInnerSquare(getGridNo(row, col))) { //something wrong here
                     if (col < 8)
                         col++;
                     else {
