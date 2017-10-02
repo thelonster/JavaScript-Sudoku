@@ -32,7 +32,7 @@ function checkRow(row) {
 
 function checkInnerSquare(squareNo) {
     var startRow = 0;
-    if (squareno < 3) {
+    if (squareNo < 3) {
         startRow = 0;
     }
     else if (squareNo < 6) {
@@ -141,7 +141,7 @@ function sudokuSolve(row, col) {
             var testNo;
             //If the position is empty, start from beginning testing values
             if (puzzle[row][col] == 0)
-                testno = 1;
+                testNo = 1;
             //If not, set testno to the next value
             else
                 testNo = puzzle[row][col] + 1;
