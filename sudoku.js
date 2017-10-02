@@ -1,9 +1,9 @@
-var puzzle = new Array();
-var immutable = new Array();
+var puzzle = [];//new Array();
+var immutable = [];//new Array();
 
 function initializePuzzle() {
     for (var a = 0; a < 9; a++) {
-        puzzle[a] = new Array();
+        puzzle[a] = [];//new Array();
         for (var b = 0; b < 9; b++) {
             puzzle[a][b] = 0;
         }
@@ -11,7 +11,7 @@ function initializePuzzle() {
 }
 
 function checkColumn(column) {
-    var nums[10] = new Array();
+    var nums = new Array(10);
     for (var a = 0; a < 9; a++)
         nums[puzzle[a][column]]++;
     for (var i = 1; i < 10; i++)
@@ -21,7 +21,7 @@ function checkColumn(column) {
 }
 
 function checkRow(row) {
-    nums[10] = new Array();
+    nums = new Array(10);
     for (a = 0; a < 9; a++)
         nums[puzzle[row][a]]++;
     for (i = 1; i < 10; i++)
@@ -42,7 +42,7 @@ function checkInnerSquare(squareNo) {
     }
     startCol = (squareNo % 3) * 3;
 
-    var nums[10] = new Array();
+    var nums = new Array(10);
     for (var outer = 0; outer < 3; outer++)
         for (var inner = 0; inner < 3; inner++)
             nums[puzzle[startRow + outer][startCol + inner]]++;
@@ -165,7 +165,7 @@ function sudokuSolve(row, col) {
             //getprevnonimmutable pos returns an int that is the numerical position in the puzzle
             //I can take this pos and get the new row and column
             var tempIndex = getPrevNonImmutablePos(row, col);
-            var newRow = tempIndex / 9;
+            var newRow = parseInt(tempIndex / 9);
             var newCol = tempIndex % 9;
             puzzle[row][col] = 0;
             row = newRow > 0 ? newRow : 0;
