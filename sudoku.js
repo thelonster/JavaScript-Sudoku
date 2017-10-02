@@ -13,7 +13,7 @@ function initializePuzzle() {
 function checkColumn(column) {
     var nums = new Array(10);
     for (var a = 0; a < 9; a++)
-        nums[puzzle[a][column]]++;
+        nums[parseInt(puzzle[a][column])]++;
     for (var i = 1; i < 10; i++)
         if (nums[i] > 1)
             return false;
@@ -21,9 +21,9 @@ function checkColumn(column) {
 }
 
 function checkRow(row) {
-    nums = new Array(10);
+    var nums = new Array(10);
     for (a = 0; a < 9; a++)
-        nums[puzzle[row][a]]++;
+        nums[parseInt(puzzle[row][a])]++;
     for (i = 1; i < 10; i++)
         if (nums[i] > 1)
             return false;
@@ -45,7 +45,7 @@ function checkInnerSquare(squareNo) {
     var nums = new Array(10);
     for (var outer = 0; outer < 3; outer++)
         for (var inner = 0; inner < 3; inner++)
-            nums[puzzle[startRow + outer][startCol + inner]]++;
+            nums[parseInt(puzzle[startRow + outer][startCol + inner])]++;
     for (var a = 1; a < 10; a++)
         if (nums[a] > 1)
             return false;
@@ -64,8 +64,6 @@ function isSolved() {
         for (var b = 0; b < 9; b++) {
             if (puzzle[a][b] == 0)
                 return false;
-            else if (isNaN(puzzle[a][b]))
-                return false;
         }
         if (!checkColumn(a))
             return false;
@@ -79,7 +77,7 @@ function isSolved() {
 
 function findStartCol() {
     for (var a = 0; a < 9; a++)
-        if (puzzle[a][0] == 0 || isNaN(puzzle[a][0]))
+        if (puzzle[0][a] == 0)
             return a;
     return -1;
 }

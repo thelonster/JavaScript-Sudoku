@@ -11,8 +11,13 @@ function getArrayFromTable() {
     var tablePuzzle = new Array();
     for (var r = 0; r < 9; r++) {
         tablePuzzle[r] = new Array();
-        for (var c = 0; c < 9; c++)
-            tablePuzzle[r][c] = parseInt($("#c"+ r + c).val());//change this to get empty values as 0's
+        for (var c = 0; c < 9; c++) {
+            var value = $("#c" + r + c).val();
+            if ( value == "")
+                tablePuzzle[r][c] = 0;
+            else
+                tablePuzzle[r][c] = parseInt(value);
+        }
     }
     return tablePuzzle;
 }
