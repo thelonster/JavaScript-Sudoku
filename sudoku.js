@@ -174,3 +174,15 @@ function sudokuSolve(row, col) {
         }
     }
 }
+
+function generatePuzzle(difficulty) {
+    var randStart = [1,2,3,4,5,6,7,8,9];
+    arrayShuffle(randStart);
+}
+
+function arrayShuffle(arr) {
+    for (let i = arr.length; i; i--) {
+        let j = Math.floor(Math.random() * i);
+        [arr[i - 1], arr[j]] = [arr[j], arr[i - 1]];
+    }
+}

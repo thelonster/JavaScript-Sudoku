@@ -5,6 +5,9 @@ $(document).ready(function(){
     $(".clear").click(function(){
         clearTablePuzzle();
     });
+    $(".genpuz").click(function(){
+        genRandPuzzle(2);
+    });
 });
 
 function getArrayFromTable() {
@@ -59,4 +62,11 @@ function isValidPuzzle() {
             return false;
     }
     return true;
+}
+
+function genRandPuzzle(difficulty) {
+    initializePuzzle();
+    generatePuzzle(difficulty);
+    var puzzle = getPuzzle();
+    setTableFromArray(puzzle);
 }
