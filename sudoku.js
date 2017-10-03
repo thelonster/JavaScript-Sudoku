@@ -181,7 +181,7 @@ function generatePuzzle(difficulty) {
     for (var a = 0; a < 9; a++)
         puzzle[0][a] = randStart[a];
     initializeImmutable();
-    sudokuSolve(1,0);
+    sudokuSolve(0,1);
     clearImmutable();
     for (var b = 0; b < 20 + (difficulty * 5); b++) {
         var rxpos = parseInt(Math.random() % 9);

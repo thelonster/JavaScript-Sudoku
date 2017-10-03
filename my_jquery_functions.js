@@ -70,3 +70,11 @@ function genRandPuzzle(difficulty) {
     var puzzle = getPuzzle();
     setTableFromArray(puzzle);
 }
+
+function clearZeros() {
+    var puzzle = getArrayFromTable();
+    for (var r = 0; r < 9; r++)
+        for (var c = 0; c < 9; c++)
+            if (puzzle[r][c] == 0)
+                $("#c" + r + c).val("");
+}
