@@ -178,11 +178,24 @@ function sudokuSolve(row, col) {
 function generatePuzzle(difficulty) {
     var randStart = [1,2,3,4,5,6,7,8,9];
     arrayShuffle(randStart);
+    for (var a = 0; a < 9; a++)
+        puzzle[0][a] = randStart[a];
+    initializeImmutable();
+    sudokuSolve(1,0);
+    clearImmutable();
+    for (var b = 0; b < 20 + (difficulty * 5); b++) {
+        var rxpos = parseInt(Math.random() % 9);
+        var rypos = parseInt(Math.random() % 9);
+        immutable[rxpos][rypos] = 1;
+    }
+    for (var row = 0; row < 9; row++)
+        for (var col = 0; col < 9; col++)
+            puzzle[row][col] = immutable[row][col] == 1 ? puzzle[row][col] : 0;
 }
 
 function arrayShuffle(arr) {
-    for (let i = arr.length; i; i--) {
-        let j = Math.floor(Math.random() * i);
+    for (var i = arr.length; i; i--) {
+        var j = Math.floor(Math.random() * i);
         [arr[i - 1], arr[j]] = [arr[j], arr[i - 1]];
     }
 }
