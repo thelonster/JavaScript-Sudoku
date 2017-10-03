@@ -184,8 +184,8 @@ function generatePuzzle(difficulty) {
     sudokuSolve(0,1);
     clearImmutable();
     for (var b = 0; b < 20 + (difficulty * 5); b++) {
-        var rxpos = parseInt(Math.random() % 9);
-        var rypos = parseInt(Math.random() % 9);
+        var rxpos = parseInt((Math.random() * 100) % 9);
+        var rypos = parseInt((Math.random() * 100) % 9);
         immutable[rxpos][rypos] = 1;
     }
     for (var row = 0; row < 9; row++)

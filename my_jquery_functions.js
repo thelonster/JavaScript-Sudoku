@@ -69,6 +69,7 @@ function genRandPuzzle(difficulty) {
     generatePuzzle(difficulty);
     var puzzle = getPuzzle();
     setTableFromArray(puzzle);
+    clearZeros();
 }
 
 function clearZeros() {
