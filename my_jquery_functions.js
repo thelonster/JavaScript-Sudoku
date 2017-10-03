@@ -40,7 +40,23 @@ function solve() {
     var tablePuzzle = getArrayFromTable();
     initializePuzzle();
     setPuzzle(tablePuzzle);
-    sudokuSolve(0,findStartCol());
-    var puzzle = getPuzzle();
-    setTableFromArray(puzzle);
+    if (!isValidPuzzle())
+        alert("Please enter a valid puzzle");
+    else {
+        sudokuSolve(0,findStartCol());
+        var puzzle = getPuzzle();
+        setTableFromArray(puzzle);
+    }
+}
+
+function isValidPuzzle() {
+    for (var a = 0; a < 9; a++) {
+        if (!checkRow(a))
+            return false;
+        else if (!checkColumn(a))
+            return false;
+        else if (!checkInnerSquare(a))
+            return false;
+    }
+    return true;
 }
