@@ -146,9 +146,10 @@ function sudokuSolve(row, col) {
                 testNo = puzzle[row][col] + 1;
             //This bool is to exit the for loop once a value is successfully placed in the puzzle
             var success = false;
+            //Loop through rest of the values and attempt to place them in the puzzle
             for (testNo; testNo < 10 && !success; testNo++) {
                 puzzle[row][col] = testNo;
-                if (checkRow(row) && checkColumn(col) && checkInnerSquare(getGridNo(row, col))) { //something wrong here
+                if (checkRow(row) && checkColumn(col) && checkInnerSquare(getGridNo(row, col))) { 
                     if (col < 8)
                         col++;
                     else {
