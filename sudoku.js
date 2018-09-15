@@ -136,8 +136,6 @@ function sudokuSolve(row, col) {
               row++;
               col = 0;
             }
-            //Using the continue statement to jump back to start of while loop
-            continue;
         } else {
             var testNo;
             //If the position is empty, start from beginning testing values
